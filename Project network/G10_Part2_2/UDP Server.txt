@@ -1,0 +1,47 @@
+import socket
+
+def UDP_server_Connections(PORT):
+    """These informations and the used lines here I learned it
+       from video & I will provide the references in the report
+       "https://www.youtube.com/watch?v=3QiPPX-KeSc" """
+    # socket.AF_INET => the socket will use IPv4 and I take it from my PC.
+    # socket.SOCK_DGRAM => specifies that the socket is a UDP socket.
+    # "0.0.0.0" makes the server listen to all network interfaces
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    server_socket.bind(('0.0.0.0', PORT))
+
+    print(f"The UDP Server is running on port {PORT}")
+
+    The_clients_list = {}  # Dictionary to store the last message from each client
+
+    while True:
+        print("Waiting for a message from the clients...\n")
+        data, address = server_socket.recvfrom(1024)
+        message = data.decode()
+
+        # Get the client's name and message from the message string
+        try:
+            client_information, client_message = message.split(':', 1)
+        except ValueError:
+            print(f"Invalid message format: {message}")
+            continue
+
+        # Update the client's last message
+        The_clients_list[client_information] = client_message
+
+        # Print the message from the client
+        print(f"Message from {client_information}: {client_message}")
+
+        # Get a reply from the server to send back to the client
+        The_Server_reply = input(f"Enter your message to {client_information}: ")
+        server_socket.sendto(The_Server_reply.encode(), address)
+        print(f"Sent reply to {client_information}: {The_Server_reply}")
+
+        # Print messages from all clients
+        print("\nMessages from all client communications:\n")
+        for client_info, client_msg in The_clients_list.items():
+            print(f"Message from {client_info}: {client_msg}")
+
+if __name__ == "__main__":
+    port = 1727  # The port that the server is running on, based on one of my partner's ID.
+    UDP_server_Connections(port)  # Calling this function to start the server

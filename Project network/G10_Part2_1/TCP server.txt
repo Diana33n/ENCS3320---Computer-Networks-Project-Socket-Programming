@@ -1,0 +1,54 @@
+import socket
+
+#========================================
+def replace_The_vowels_Function(Message): #  function replaces the vowels in the messages with
+        Output_String = []  # this list will contain the modified message that will
+                        # be contained the messages after replacing the vowels with #
+        vowels = "aeiouAEIOU" #the list of vowels in small and capital form
+
+        #here i put 2 iterations in a loop one of it to
+        for i in Message:
+            if i in vowels:
+                Output_String.append('#')
+            else:
+                Output_String.append(i)
+
+        return ''.join(Output_String) #this will return the modified message after editing
+
+#=======================================
+def Starting_Of_The_Server(Port):
+    """these informations and the used lines here i learn it
+     from video & i will provide the refrences in report"https://www.youtube.com/watch?v=3QiPPX-KeSc" """
+    #socket.AF_INET => the socket will use IPv4 and i take it from my pc.
+    #socket.SOCK_STREAM => specifys that the socket is a TCP socket.
+    # "0.0.0.0" makes the server listen to all network interfaces
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind(('0.0.0.0', Port))
+    server_socket.listen(1)
+
+    print(f"The Server being run on port {Port}") # "" to know that the server is
+                                                    #  running on this port ""
+
+    while True:
+        client_socket, addr = server_socket.accept() #
+        print(f"This Connection is from {addr}")#it will print the address of the client
+
+        Client_Message= client_socket.recv(1024).decode() # it will receive the Client_Message from the client
+                                     #the 1024 is the buffer size in bytes then i decode it
+        print(f"The Data received from the client is : {Client_Message}") # to print the Client_Message from the client
+
+        if not Client_Message: #check the Client_Message if it is not empty then break
+            break
+
+        modified_Message = replace_The_vowels_Function(Client_Message) #calling the replace vowels function
+
+        client_socket.send(modified_Message.encode())#sending the modified message to the client
+
+
+
+        client_socket.close()
+#=======================================
+#this is the main function:
+if __name__ == "__main__":
+    print("Welcome To The Server")
+    Starting_Of_The_Server(1727) #calling the function with the specified port

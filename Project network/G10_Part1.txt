@@ -1,0 +1,77 @@
+Microsoft Windows [Version 10.0.19045.4651]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\WINDOWS\system32>ping 192.168.88.5
+
+Pinging 192.168.88.5 with 32 bytes of data:
+Reply from 192.168.88.5: bytes=32 time=98ms TTL=64
+Reply from 192.168.88.5: bytes=32 time=77ms TTL=64
+Reply from 192.168.88.5: bytes=32 time=20ms TTL=64
+Reply from 192.168.88.5: bytes=32 time=54ms TTL=64
+
+Ping statistics for 192.168.88.5:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 20ms, Maximum = 98ms, Average = 62ms
+---------------------------------------------------------------------------------------------------
+C:\WINDOWS\system32>ping  www.ox.ac.uk.
+
+Pinging www.ox.ac.uk.cdn.cloudflare.net [104.22.49.74] with 32 bytes of data:
+Reply from 104.22.49.74: bytes=32 time=10ms TTL=58
+Reply from 104.22.49.74: bytes=32 time=5ms TTL=58
+Reply from 104.22.49.74: bytes=32 time=6ms TTL=58
+Reply from 104.22.49.74: bytes=32 time=6ms TTL=58
+
+Ping statistics for 104.22.49.74:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 5ms, Maximum = 10ms, Average = 6ms
+------------------------------------------------------------------------------------------------------
+C:\WINDOWS\system32>tracert  www.ox.ac.uk.
+
+Tracing route to www.ox.ac.uk.cdn.cloudflare.net [104.22.49.74]
+over a maximum of 30 hops:
+
+  1     5 ms     2 ms     2 ms  192.168.88.1
+  2     5 ms     5 ms     5 ms  10.74.32.250
+  3     6 ms     6 ms     6 ms  10.74.19.29
+  4     7 ms     6 ms     6 ms  82.213.5.42
+  5     5 ms     5 ms    27 ms  104.22.49.74
+
+Trace complete.
+------------------------------------------------------------------------------------------------------
+C:\WINDOWS\system32>nslookup www.ox.ac.uk.
+Server:  UnKnown
+Address:  192.168.88.1
+
+Non-authoritative answer:
+Name:    www.ox.ac.uk.cdn.cloudflare.net
+Addresses:  104.22.48.74
+          172.67.20.89
+          104.22.49.74
+Aliases:  www.ox.ac.uk
+---------------------------------------------------------------------------------
+//this command in fact will give me an empty screen to start a connection with the server an if i enter anything to this screen the following reply will appear
+C:\WINDOWS\system32>telnet www.ox.ac.uk 80
+
+ 
+ HTTP/1.1 400 Bad Request
+Server: cloudflare
+Date: Thu, 15 Aug 2024 15:25:14 GMT
+Content-Type: text/html
+Content-Length: 155
+Connection: close
+CF-RAY: -
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body>
+<center><h1>400 Bad Request</h1></center>
+<hr><center>cloudflare</center>
+</body>
+</html>
+
+
+Connection to host lost.
+
+C:\WINDOWS\system32>

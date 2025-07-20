@@ -1,0 +1,32 @@
+import socket
+
+
+def UPD_client_Connections(ServerIP, PORT, clientID):
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    try:
+        while True:
+            message = input(f"Enter your message to the server (Client {clientID}): ")
+            formatted_message = f"Client{clientID}:{message}"  # Format the message as Client1:hello
+            client_socket.sendto(formatted_message.encode(), (ServerIP, PORT))  # Send the message to the server
+
+            print("Waiting for a message from the server...\n")
+            data, address = client_socket.recvfrom(1024)
+            print(f"Received message from server: {data.decode()}")
+
+            continue_chat = input("Do you want to send another message? (Y/N): ").strip().lower()
+            if continue_chat != 'Y' and continue_chat != 'y':
+                break
+
+    except KeyboardInterrupt:
+        print("\nClient shutting down...")
+
+    finally:
+        client_socket.close()
+
+
+if __name__ == "__main__":
+    server_ip = '192.168.68.62'  # The IP address of the server
+    port = 1727  # The port that the server is running on
+    client_id = input("Enter your client ID (e.g :1,2,...): ")
+    UPD_client_Connections(server_ip, port, client_id)
