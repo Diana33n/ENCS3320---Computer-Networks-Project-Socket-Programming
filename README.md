@@ -1,6 +1,3 @@
-Perfect. Based on your **G10-network.pdf**, Python codes (**TCP client.txt**, **UDP Server.txt**), and **G10\_Part1.txt**, here’s a clean and professional **README.md** for your ENCS3320 project:
-
----
 
 # ENCS3320 - Computer Networks Project: Socket Programming
 
